@@ -98,7 +98,6 @@
             const Graph = ForceGraph()(elem);
             $.getJSON("json/"+ name +".json", function(graph) {
             }).then(data => {
-                var data = JSON.parse(data);
                 var nodes = data.nodes;
                 Graph.backgroundColor('#101020')
                     .nodeRelSize(NODE_R)
