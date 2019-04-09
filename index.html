@@ -107,7 +107,7 @@
         function chooseQuery(name) {
             console.log(name);
             
-            $.getJSON("json/new/"+ name +".json", function(graph) {
+            $.getJSON("json/"+ name +".json", function(graph) {
             }).then(data => {
                 //var data = JSON.parse(data);
                 var nodes = data.nodes;
