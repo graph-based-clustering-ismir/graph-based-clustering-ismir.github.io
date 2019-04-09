@@ -92,19 +92,26 @@
         $('.button').click(function() {
             chooseQuery($(this).attr('id'));
         })
+        
+        var Graph = ForceGraph()(elem);
+        Graph.backgroundColor('#101020')
+            .nodeRelSize(NODE_R)
+            //.d3Force('center', null)
+            //.d3Force('charge', null)
+            //.d3Force('link', null)
+            .nodeLabel(node => `${node.name}: ${node.tags}`)
+            .nodeAutoColorBy('group')
+            .linkColor(() => 'rgba(255,255,255,0.2)')
+            .onNodeHover(node => onNodeHover(node))
 
         function chooseQuery(name) {
             console.log(name);
-            const Graph = ForceGraph()(elem);
-            $.getJSON("json/"+ name +".json", function(graph) {
+            
+            $.getJSON("json/new/"+ name +".json", function(graph) {
             }).then(data => {
+                //var data = JSON.parse(data);
                 var nodes = data.nodes;
-                Graph.backgroundColor('#101020')
-                    .nodeRelSize(NODE_R)
-                    .nodeLabel(node => `${node.name}: ${node.tags}`)
-                    .nodeAutoColorBy('group')
-                    .linkColor(() => 'rgba(255,255,255,0.2)')
-                    .onNodeHover(node => onNodeHover(node))
+                Graph
                     .d3Force('collide', d3.forceCollide(Graph.nodeRelSize()))
                     .d3Force('box', () => {
                       const SQUARE_HALF_SIDE = Graph.nodeRelSize() * 800 * 0.5;
